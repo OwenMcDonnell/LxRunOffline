@@ -1,12 +1,12 @@
 ﻿image: Visual Studio 2017
 environment:
   matrix:
-    - USE_MSYS: false
-      VCPKG_DEFAULT_TRIPLET: x64-windows
+  #  - USE_MSYS: false
+   #   VCPKG_DEFAULT_TRIPLET: x64-windows
     - USE_MSYS: true
       MSYSTEM: MINGW64
-cache:
-  - C:\tools\vcpkg\installed
+#cache:
+ # - C:\tools\vcpkg\installed
 configuration: Release
 before_build:
   - ps: $Env:VERSION=(git describe --tags)
