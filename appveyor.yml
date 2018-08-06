@@ -1,16 +1,18 @@
 ﻿image: Visual Studio 2017
 environment:
   matrix:
-    - USE_MSYS: false
-      VCPKG_DEFAULT_TRIPLET: x64-windows
+    #- USE_MSYS: false
+     # VCPKG_DEFAULT_TRIPLET: x64-windows
     - USE_MSYS: true
       MSYSTEM: MINGW64
-cache:
-  - C:\tools\vcpkg\installed
+#cache:
+ # - C:\tools\vcpkg\installed
 configuration: Release
 before_build:
   - ps: $Env:VERSION=(git describe --tags)
   - ps: Update-AppveyorBuild -Version $Env:VERSION
+  - C:\msys64\usr\bin\bash -lc "pacman --needed --noconfirm -Sy pacman-mirrors"
+  - C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Sy"
   - ps: |
       if ($Env:USE_MSYS -ne 'true') {
           pushd C:\tools\vcpkg
